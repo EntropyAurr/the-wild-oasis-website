@@ -1,8 +1,6 @@
 import "@/app/_styles/globals.css";
-
-import Header from "@/app/_components/Header";
-
 import { Josefin_Sans } from "next/font/google";
+import Header from "@/app/_components/Header";
 
 const josein = Josefin_Sans({
   subsets: ["latin"],

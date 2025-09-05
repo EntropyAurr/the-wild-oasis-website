@@ -1,7 +1,21 @@
+import { notFound } from "next/navigation";
 import { eachDayOfInterval } from "date-fns";
 import { supabase } from "./supabase";
 
 // GET
+export const getCabins = async function () {
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("id, name, maxCapacity, regularPrice, discount, image")
+    .order("name");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cabins could not be loaded");
+  }
+
+  return data;
+};
 
 export async function getCabin(id) {
   const { data, error } = await supabase
@@ -15,6 +29,7 @@ export async function getCabin(id) {
 
   if (error) {
     console.error(error);
+    notFound();
   }
 
   return data;
@@ -33,20 +48,6 @@ export async function getCabinPrice(id) {
 
   return data;
 }
-
-export const getCabins = async function () {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("id, name, maxCapacity, regularPrice, discount, image")
-    .order("name");
-
-  if (error) {
-    console.error(error);
-    throw new Error("Cabins could not be loaded");
-  }
-
-  return data;
-};
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
@@ -147,7 +148,6 @@ export async function getCountries() {
 }
 
 // CREATE
-
 export async function createGuest(newGuest) {
   const { data, error } = await supabase.from("guests").insert([newGuest]);
 
@@ -176,7 +176,6 @@ export async function createBooking(newBooking) {
 }
 
 // UPDATE
-
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
   const { data, error } = await supabase
@@ -209,7 +208,6 @@ export async function updateBooking(id, updatedFields) {
 }
 
 // DELETE
-
 export async function deleteBooking(id) {
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
