@@ -8,16 +8,14 @@ export default function Page() {
       <Image
         src={bg}
         fill
-        quality={100}
+        quality={80}
         className="object-cover object-top"
         placeholder="blur"
         alt="Mountains and forests with two cabins"
       />
 
       <div className="relative z-10 text-center">
-        <h1 className="text-primary-50 mb-10 text-8xl font-normal tracking-tight">
-          Welcome to paradise.
-        </h1>
+        <h1 className="text-primary-50 mb-10 text-8xl font-normal tracking-tight">Welcome to paradise.</h1>
 
         <Link
           href="/cabins"

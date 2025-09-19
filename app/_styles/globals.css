@@ -1,12 +1,7 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @theme {
   /* Primary Colors */
-
   --color-primary-50: #e1e8ef;
   --color-primary-100: #d4dee7;
   --color-primary-200: #b7c7d7;
@@ -20,7 +15,6 @@
   --color-primary-950: #141c24;
 
   /* Accent Colors */
-
   --color-accent-50: #faf5f0;
   --color-accent-100: #f4ece1;
   --color-accent-200: #e8d6bf;
@@ -63,7 +57,6 @@
 }
 
 /* For data picker */
-
 .rdp {
   --rdp-cell-size: 32px !important;
   --rdp-accent-color: theme("colors.accent.500") !important;
