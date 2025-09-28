@@ -5,13 +5,11 @@ import { useState } from "react";
 function TextExpander({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const displayText = isExpanded
-    ? children
-    : children.split(" ").slice(0, 40).join(" ") + "...";
+  const displayText = isExpanded ? children : children.split(" ").slice(0, 40).join(" ") + "...";
 
   return (
     <span>
-      {displayText}{" "}
+      {displayText}
       <button
         className="text-primary-700 border-primary-700 cursor-pointer border-b pb-1 leading-3"
         onClick={() => setIsExpanded(!isExpanded)}

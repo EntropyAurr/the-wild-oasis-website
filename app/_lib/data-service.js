@@ -18,14 +18,10 @@ export const getCabins = async function () {
 };
 
 export async function getCabin(id) {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const { data, error } = await supabase.from("cabins").select("*").eq("id", id).single();
 
   // For testing
-  // await new Promise((res) => setTimeout(res, 1000));
+  // await new Promise((res) => setTimeout(res, 5000));
 
   if (error) {
     console.error(error);
@@ -36,11 +32,7 @@ export async function getCabin(id) {
 }
 
 export async function getCabinPrice(id) {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("regularPrice, discount")
-    .eq("id", id)
-    .single();
+  const { data, error } = await supabase.from("cabins").select("regularPrice, discount").eq("id", id).single();
 
   if (error) {
     console.error(error);
@@ -51,22 +43,14 @@ export async function getCabinPrice(id) {
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
-  const { data, error } = await supabase
-    .from("guests")
-    .select("*")
-    .eq("email", email)
-    .single();
+  const { data, error } = await supabase.from("guests").select("*").eq("email", email).single();
 
   // No error here! We handle the possibility of no guest in the sign in callback
   return data;
 }
 
 export async function getBooking(id) {
-  const { data, error, count } = await supabase
-    .from("bookings")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const { data, error, count } = await supabase.from("bookings").select("*").eq("id", id).single();
 
   if (error) {
     console.error(error);
@@ -111,7 +95,7 @@ export async function getBookedDatesByCabinId(cabinId) {
     throw new Error("Bookings could not get loaded");
   }
 
-  // Converting to actual dates to be displayed in the date picker
+  // Converting to actual dates to be displayed in the day picker
   const bookedDates = data
     .map((booking) => {
       return eachDayOfInterval({
@@ -127,6 +111,9 @@ export async function getBookedDatesByCabinId(cabinId) {
 export async function getSettings() {
   const { data, error } = await supabase.from("settings").select("*").single();
 
+  // For testing
+  // await new Promise((res) => setTimeout(res, 5000));
+
   if (error) {
     console.error(error);
     throw new Error("Settings could not be loaded");
@@ -137,9 +124,7 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag",
-    );
+    const res = await fetch("https://restcountries.com/v2/all?fields=name,flag");
     const countries = await res.json();
     return countries;
   } catch {
@@ -178,12 +163,7 @@ export async function createBooking(newBooking) {
 // UPDATE
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
-  const { data, error } = await supabase
-    .from("guests")
-    .update(updatedFields)
-    .eq("id", id)
-    .select()
-    .single();
+  const { data, error } = await supabase.from("guests").update(updatedFields).eq("id", id).select().single();
 
   if (error) {
     console.error(error);
@@ -193,12 +173,7 @@ export async function updateGuest(id, updatedFields) {
 }
 
 export async function updateBooking(id, updatedFields) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .update(updatedFields)
-    .eq("id", id)
-    .select()
-    .single();
+  const { data, error } = await supabase.from("bookings").update(updatedFields).eq("id", id).select().single();
 
   if (error) {
     console.error(error);
