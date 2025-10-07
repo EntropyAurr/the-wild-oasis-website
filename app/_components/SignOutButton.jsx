@@ -1,11 +1,14 @@
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/solid";
+import { signOutAction } from "@/app/_lib/action";
 
 function SignOutButton() {
   return (
-    <button className='py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 w-full'>
-      <ArrowRightOnRectangleIcon className='h-5 w-5 text-primary-600' />
-      <span>Sign out</span>
-    </button>
+    <form action={signOutAction}>
+      <button className="hover:bg-primary-900 hover:text-primary-100 text-primary-200 flex w-full items-center gap-4 px-5 py-3 font-semibold transition-colors">
+        <ArrowRightStartOnRectangleIcon className="text-primary-600 h-5 w-5" />
+        <span>Sign out</span>
+      </button>
+    </form>
   );
 }
 

@@ -33,6 +33,7 @@ function UpdateProfileForm({ children }) {
             className="h-5 rounded-sm"
           />
         </div>
+
         {children}
       </div>
 

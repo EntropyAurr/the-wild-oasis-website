@@ -43,9 +43,9 @@ export async function getCabinPrice(id) {
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
-  const { data, error } = await supabase.from("guests").select("*").eq("email", email).single();
+  const { data } = await supabase.from("guests").select("*").eq("email", email).single();
 
-  // No error here! We handle the possibility of no guest in the sign in callback
+  // No error because the possibility of no guest is already handled in the sign in callback
   return data;
 }
 
