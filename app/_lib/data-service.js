@@ -4,10 +4,7 @@ import { supabase } from "./supabase";
 
 // GET
 export const getCabins = async function () {
-  const { data, error } = await supabase
-    .from("cabins")
-    .select("id, name, maxCapacity, regularPrice, discount, image")
-    .order("name");
+  const { data, error } = await supabase.from("cabins").select("id, name, maxCapacity, regularPrice, discount, image").order("name");
 
   if (error) {
     console.error(error);
@@ -61,14 +58,7 @@ export async function getBooking(id) {
 }
 
 export async function getBookings(guestId) {
-  const { data, error, count } = await supabase
-    .from("bookings")
-    // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
-    .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
-    )
-    .eq("guestId", guestId)
-    .order("startDate");
+  const { data, error, count } = await supabase.from("bookings").select("id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)").eq("guestId", guestId).order("startDate");
 
   if (error) {
     console.error(error);
@@ -84,11 +74,7 @@ export async function getBookedDatesByCabinId(cabinId) {
   today = today.toISOString();
 
   // Getting all bookings
-  const { data, error } = await supabase
-    .from("bookings")
-    .select("*")
-    .eq("cabinId", cabinId)
-    .or(`startDate.gte.${today},status.eq.checked-in`);
+  const { data, error } = await supabase.from("bookings").select("*").eq("cabinId", cabinId).or(`startDate.gte.${today},status.eq.checked-in`);
 
   if (error) {
     console.error(error);
@@ -162,7 +148,7 @@ export async function createBooking(newBooking) {
 
 // UPDATE
 // The updatedFields is an object which should ONLY contain the updated data
-export async function updateGuest(id, updatedFields) {
+/* export async function updateGuest(id, updatedFields) {
   const { data, error } = await supabase.from("guests").update(updatedFields).eq("id", id).select().single();
 
   if (error) {
@@ -192,3 +178,4 @@ export async function deleteBooking(id) {
   }
   return data;
 }
+*/
