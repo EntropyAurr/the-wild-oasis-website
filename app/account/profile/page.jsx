@@ -7,8 +7,6 @@ export const metadata = {
   title: "Update profile",
 };
 
-const FLAG_API = "https://countryflagsapi.netlify.app/flag/";
-
 export default async function Page() {
   const session = await auth();
   const guest = await getGuest(session.user.email);
