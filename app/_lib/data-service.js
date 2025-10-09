@@ -4,7 +4,10 @@ import { supabase } from "./supabase";
 
 // GET
 export const getCabins = async function () {
-  const { data, error } = await supabase.from("cabins").select("id, name, maxCapacity, regularPrice, discount, image").order("name");
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("id, name, maxCapacity, regularPrice, discount, image")
+    .order("name");
 
   if (error) {
     console.error(error);
@@ -58,7 +61,13 @@ export async function getBooking(id) {
 }
 
 export async function getBookings(guestId) {
-  const { data, error, count } = await supabase.from("bookings").select("id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)").eq("guestId", guestId).order("startDate");
+  const { data, error, count } = await supabase
+    .from("bookings")
+    .select(
+      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
+    )
+    .eq("guestId", guestId)
+    .order("startDate");
 
   if (error) {
     console.error(error);
@@ -74,7 +83,11 @@ export async function getBookedDatesByCabinId(cabinId) {
   today = today.toISOString();
 
   // Getting all bookings
-  const { data, error } = await supabase.from("bookings").select("*").eq("cabinId", cabinId).or(`startDate.gte.${today},status.eq.checked-in`);
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*")
+    .eq("cabinId", cabinId)
+    .or(`startDate.gte.${today},status.eq.checked-in`);
 
   if (error) {
     console.error(error);
